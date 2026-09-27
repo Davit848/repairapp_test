@@ -8,10 +8,10 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
-        <!-- Google Maps: replace with your key from https://console.cloud.google.com/google/maps-apis -->
+        <!-- Google Maps key comes from MAPS_API_KEY in android/local.properties -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
+            android:value="${MAPS_API_KEY}"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

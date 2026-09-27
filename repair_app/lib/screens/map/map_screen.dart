@@ -1,9 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../providers/shop_provider.dart';
 import '../../models/shop.dart';
+import '../../services/location_service.dart';
+
+// google_maps_flutter only supports Android, iOS and Web (not Windows/macOS/Linux desktop)
+bool get _isMapSupported =>
+    kIsWeb || defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -27,21 +33,21 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+    if (!_isMapSupported) return;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return;
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) return;
+    final Position position;
+    try {
+      position = await LocationService.getCurrentPosition();
+    } catch (e) {
+      debugPrint('Map Location Error: $e');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e is LocationException ? e.message : 'Could not get your location.')),
+      );
+      return;
     }
 
-    if (permission == LocationPermission.deniedForever) return;
-
-    Position position = await Geolocator.getCurrentPosition();
+    if (!mounted) return;
     setState(() {
       _currentPosition = LatLng(position.latitude, position.longitude);
       _hasLocation = true;
@@ -92,6 +98,8 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isMapSupported) return _buildUnsupported();
+
     final shopProvider = Provider.of<ShopProvider>(context);
 
     Set<Marker> markers = shopProvider.shops.map((shop) {
@@ -127,6 +135,30 @@ class _MapScreenState extends State<MapScreen> {
               myLocationButtonEnabled: true,
               onMapCreated: (controller) => _mapController = controller,
             ),
+    );
+  }
+
+  Widget _buildUnsupported() {
+    return const Scaffold(
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.map_outlined, size: 64, color: Colors.grey),
+              SizedBox(height: 16),
+              Text('Map is not available on desktop', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text(
+                'Google Maps works on Android, iPhone and Chrome.\nRun the app on an Android emulator/phone or in Chrome to see the map.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

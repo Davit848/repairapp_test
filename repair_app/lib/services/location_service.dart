@@ -28,17 +28,20 @@ class LocationService {
       throw LocationException('Location permission is blocked. Please allow it in your phone settings.');
     }
 
-    return Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return Geolocator.getCurrentPosition(
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
+    );
   }
 
   // Converts coordinates to a readable address; falls back to the coordinates.
   static Future<String> addressFromCoordinates(double latitude, double longitude) async {
     try {
-      final placemarks = await placemarkFromCoordinates(latitude, longitude);
+      final placemarks = await Geocoding().placemarkFromCoordinates(latitude, longitude);
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
-        final parts = [place.street, place.subLocality, place.locality, place.country]
-            .where((part) => part != null && part.trim().isNotEmpty)
+        final parts = <String?>[place.street, place.subLocality, place.locality, place.country]
+            .whereType<String>()
+            .where((part) => part.trim().isNotEmpty)
             .toList();
         if (parts.isNotEmpty) return parts.join(', ');
       }
