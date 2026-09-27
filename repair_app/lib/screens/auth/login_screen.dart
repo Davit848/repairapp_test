@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../utils/validators.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,7 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid email or password')),
+          SnackBar(
+            content: Text(authProvider.errorMessage ?? 'Invalid email or password'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -58,14 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email Address', border: OutlineInputBorder()),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) => value!.isEmpty || !value.contains('@') ? 'Enter a valid email' : null,
+                validator: Validators.email,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
                 obscureText: true,
-                validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
+                validator: (value) => Validators.required(value, 'your password'),
               ),
               const SizedBox(height: 24),
               authProvider.isLoading
@@ -84,6 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },
                 child: const Text("Don't have an account? Register"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
+                child: const Text('Continue as guest', style: TextStyle(color: Colors.grey)),
               ),
             ],
           ),

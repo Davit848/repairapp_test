@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/product_provider.dart';
 import '../../providers/auth_provider.dart';
 import 'product_detail_screen.dart';
-import '../shop/create_shop_screen.dart';
+import '../manage/shop_form_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -32,7 +32,8 @@ class _StoreScreenState extends State<StoreScreen> {
 
     final filteredProducts = productProvider.products.where((product) {
       final matchesSearch = product.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          product.category.toLowerCase().contains(_searchQuery.toLowerCase());
+          product.category.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          (product.shop?.name.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false);
       final matchesVehicle = _selectedVehicle == 'All' || product.vehicleType.toLowerCase() == _selectedVehicle.toLowerCase();
       return matchesSearch && matchesVehicle;
     }).toList();
@@ -50,7 +51,7 @@ class _StoreScreenState extends State<StoreScreen> {
                 if (user.shop == null) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const CreateShopScreen()),
+                    MaterialPageRoute(builder: (_) => const ShopFormScreen()),
                   );
                 } else {
                   // Navigate to your shop management or product addition screen
@@ -68,7 +69,7 @@ class _StoreScreenState extends State<StoreScreen> {
             padding: const EdgeInsets.all(12.0),
             child: TextField(
               decoration: const InputDecoration(
-                hintText: 'Search spare parts...',
+                hintText: 'Search spare parts or shops...',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),

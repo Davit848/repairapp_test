@@ -23,7 +23,7 @@ class ShopController extends Controller
         $user = $request->user();
         
         // Ensure user doesn't already have a shop (1-to-1 relationship)
-        if ($user->shop) {
+        if ($user->shop()->exists()) {
             return response()->json(['message' => 'You already own a shop.'], 403);
         }
 

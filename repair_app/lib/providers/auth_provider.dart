@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 import '../services/api_service.dart';
@@ -9,11 +8,14 @@ class AuthProvider with ChangeNotifier {
   User? _user;
   String? _token;
   bool _isLoading = false;
+  String? _errorMessage;
 
   User? get user => _user;
   String? get token => _token;
   bool get isAuthenticated => _token != null;
   bool get isLoading => _isLoading;
+  // Message from the last failed login/register, ready to show to the user
+  String? get errorMessage => _errorMessage;
 
   AuthProvider() {
     _loadStoredAuth();
@@ -31,6 +33,8 @@ class AuthProvider with ChangeNotifier {
       debugPrint('Load Stored Auth Error: $e');
     }
     notifyListeners();
+    // Sync with the server so cached user data (e.g. shop) is never stale
+    if (_token != null) await fetchUserProfile();
   }
 
   // Fetch latest user profile (including shop data) without re-logging in
@@ -41,13 +45,7 @@ class AuthProvider with ChangeNotifier {
 
       if (_token == null) return;
 
-      final response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/api/user'),
-        headers: {
-          'Authorization': 'Bearer $_token',
-          'Accept': 'application/json',
-        },
-      );
+      final response = await ApiService.get('user');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -56,55 +54,20 @@ class AuthProvider with ChangeNotifier {
           await prefs.setString('user_data', jsonEncode(data));
           notifyListeners();
         }
+      } else if (response.statusCode == 401) {
+        // Token expired or revoked on the server
+        await _clearSession();
       }
     } catch (e) {
       debugPrint('Fetch User Profile Error: $e');
     }
   }
 
-  Future<bool> login(String email, String password) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      final response = await ApiService.post('login', {
-        'email': email,
-        'password': password,
-      });
-
-      debugPrint('Login Status: ${response.statusCode}');
-      debugPrint('Login Body: ${response.body}');
-
-      final data = jsonDecode(response.body);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        _token = data['access_token'] ?? data['token'];
-
-        if (data['user'] != null) {
-          _user = User.fromJson(data['user']);
-        }
-
-        final prefs = await SharedPreferences.getInstance();
-        if (_token != null) {
-          await prefs.setString('auth_token', _token!);
-        }
-        if (data['user'] != null) {
-          await prefs.setString('user_data', jsonEncode(data['user']));
-        }
-
-        _isLoading = false;
-        notifyListeners();
-        return true;
-      } else {
-        debugPrint('Login Failed Message: ${data['message'] ?? response.body}');
-      }
-    } catch (e) {
-      debugPrint('Login Exception: $e');
-    }
-
-    _isLoading = false;
-    notifyListeners();
-    return false;
+  Future<bool> login(String email, String password) {
+    return _authenticate('login', {
+      'email': email,
+      'password': password,
+    });
   }
 
   Future<bool> register(
@@ -112,26 +75,28 @@ class AuthProvider with ChangeNotifier {
     String email,
     String phone,
     String password,
-  ) async {
+    String passwordConfirmation,
+  ) {
+    return _authenticate('register', {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'password': password,
+      'password_confirmation': passwordConfirmation,
+    });
+  }
+
+  Future<bool> _authenticate(String endpoint, Map<String, dynamic> body) async {
     _isLoading = true;
+    _errorMessage = null;
     notifyListeners();
 
     try {
-      final response = await ApiService.post('register', {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'password': password,
-      });
-
-      debugPrint('Register Status: ${response.statusCode}');
-      debugPrint('Register Body: ${response.body}');
-
-      final data = jsonDecode(response.body);
+      final response = await ApiService.post(endpoint, body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
         _token = data['access_token'] ?? data['token'];
-
         if (data['user'] != null) {
           _user = User.fromJson(data['user']);
         }
@@ -147,13 +112,11 @@ class AuthProvider with ChangeNotifier {
         _isLoading = false;
         notifyListeners();
         return true;
-      } else {
-        debugPrint(
-          'Register Failed Message: ${data['message'] ?? response.body}',
-        );
       }
+      _errorMessage = ApiService.errorMessage(response);
     } catch (e) {
-      debugPrint('Register Exception: $e');
+      debugPrint('$endpoint Exception: $e');
+      _errorMessage = 'Cannot connect to server. Check your internet connection.';
     }
 
     _isLoading = false;
@@ -165,7 +128,10 @@ class AuthProvider with ChangeNotifier {
     try {
       await ApiService.post('logout', {});
     } catch (_) {}
+    await _clearSession();
+  }
 
+  Future<void> _clearSession() async {
     _token = null;
     _user = null;
     final prefs = await SharedPreferences.getInstance();

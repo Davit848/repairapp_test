@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../auth/login_screen.dart';
-import '../shop/create_shop_screen.dart'; // Import the create shop screen
+import '../manage/shop_form_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -36,10 +36,31 @@ class ProfileScreen extends StatelessWidget {
                   // Show Shop details if they have a shop, otherwise show Create Shop button
                   if (user.shop != null) ...[
                     Card(
-                      child: ListTile(
-                        leading: const Icon(Icons.store, color: Colors.blueAccent),
-                        title: Text(user.shop!.name),
-                        subtitle: Text(user.shop!.address),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.store, color: Colors.blueAccent),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(user.shop!.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Text('📍 ${user.shop!.address}'),
+                            Text('📞 ${user.shop!.phone}'),
+                            if (user.shop!.description != null && user.shop!.description!.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              Text(user.shop!.description!),
+                            ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -48,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const CreateShopScreen()),
+                          MaterialPageRoute(builder: (context) => const ShopFormScreen()),
                         );
                       },
                       icon: const Icon(Icons.store),

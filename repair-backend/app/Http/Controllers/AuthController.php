@@ -10,12 +10,22 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => ['required', 'string', 'regex:/^\+?[0-9 ]{8,15}$/'],
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'email.unique' => 'This email is already registered.',
+            'phone.regex' => 'Please enter a valid phone number.',
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'password' => Hash::make($validated['password']),
+        ]);
 
         // Load the shop relationship (will be null for new users)
         $user->load('shop');
@@ -31,6 +41,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
         $user = User::where('email', $request->input('email'))->first();
 
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
@@ -39,7 +54,6 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // LOAD THE SHOP RELATIONSHIP HERE
         $user->load('shop');
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -49,6 +63,14 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'user' => $user
         ], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        // Revoke only the token used for this request
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully.'], 200);
     }
 
     public function userProfile(Request $request)
