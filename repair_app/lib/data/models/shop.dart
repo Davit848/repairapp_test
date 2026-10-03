@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 enum ShopType {
   motorcycleRepair('Motorcycle Repair', Icons.two_wheeler),
@@ -25,7 +26,6 @@ class Shop {
     required this.closingTime,
     required this.latitude,
     required this.longitude,
-    required this.mapPosition,
     required this.mapIcon,
     this.isOpen = true,
     this.isVerified = true,
@@ -45,14 +45,13 @@ class Shop {
   final String closingTime;
   final double latitude;
   final double longitude;
-
-  /// Normalized (0–1) position on the static map illustration.
-  final Offset mapPosition;
   final IconData mapIcon;
   final bool isOpen;
   final bool isVerified;
   final String image;
   final String? note;
+
+  LatLng get location => LatLng(latitude, longitude);
 
   String get typeLabel {
     final hasBike = types.contains(ShopType.motorcycleRepair);

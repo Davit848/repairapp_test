@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-surface-variant": "#45464d", "surface-dim": "#cbdbf5", "primary-fixed-dim": "#bec6e0", "surface-container-highest": "#d3e4fe", "on-secondary-container": "#571a00", "on-primary-container": "#7c839b", "surface-bright": "#f8f9ff", "inverse-primary": "#bec6e0", "on-surface": "#0b1c30", "error-container": "#ffdad6", "outline": "#76777d", "tertiary-fixed-dim": "#b4c5ff", "on-error": "#ffffff", "secondary-fixed": "#ffdbce", "on-primary-fixed-variant": "#3f465c", "on-error-container": "#93000a", "secondary-fixed-dim": "#ffb599", "secondary": "#a73a00", "error": "#ba1a1a", "surface-container-high": "#dce9ff", "outline-variant": "#c6c6cd", "on-primary-fixed": "#131b2e", "surface-container-lowest": "#ffffff", "on-tertiary": "#ffffff", "primary-fixed": "#dae2fd", "on-background": "#0b1c30", "on-primary": "#ffffff", "primary": "#000000", "on-tertiary-fixed-variant": "#003ea8", "on-tertiary-fixed": "#00174b", "secondary-container": "#fd651e", "surface-container": "#e5eeff", "primary-container": "#131b2e", "inverse-surface": "#213145", "surface": "#f8f9ff", "on-secondary-fixed": "#370e00", "surface-container-low": "#eff4ff", "inverse-on-surface": "#eaf1ff", "tertiary": "#000000", "on-secondary": "#ffffff", "surface-tint": "#565e74", "tertiary-fixed": "#dbe1ff", "on-tertiary-container": "#497cff", "surface-variant": "#d3e4fe", "background": "#f8f9ff", "tertiary-container": "#00174b", "on-secondary-fixed-variant": "#7f2b00" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "space-xl": "2rem", "gutter-sm": "0.75rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin-sm": "0.75rem", "space-md": "1rem", "gutter-lg": "1.5rem", "gutter": "1rem", "margin": "1rem", "margin-lg": "1.5rem" }, fontFamily: { "label-lg": ["Inter"], "display-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "title-md": ["Inter"], "title-lg": ["Inter"], "body-sm": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }], "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 5rem);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="flex items-center justify-between px-margin h-6 text-on-surface"><span class="font-label-md text-label-md tracking-tight font-semibold">9:41</span><div class="flex items-center gap-space-xs text-on-surface"><span class="material-symbols-outlined text-[15px]">location_on</span><span class="material-symbols-outlined text-[15px]">wifi</span><span class="material-symbols-outlined text-[17px]">battery_full</span></div></div><div class="h-20 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Repair App Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WIwOguM50zr5tLvgD0Zib4mJZ0GSojJ_gNaATOSIGZqrVrdGGCRdjxyoEVG2zRzQJ6YZUqWwoDOTHutqGrsT38XXKYan0UrC418QXabSYnv0LY6Z2f3qNIvCWvdpgdeBQlkoKIFEX1TLkQxGH3APChy5KN4YW-BgBCLTQs6ycfn5TMo_Rgk9_trdk_r-d2tkxzK8AViCbkLJlnKBNrIlt0g0EJsNAYGwFW4659zGyxhIRKBOFaI1l06sA"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Repair</span><span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-wider leading-tight">Service Hub</span></div></div><div class="flex items-center gap-space-sm"><button class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface transition-colors active:scale-95"><span class="material-symbols-outlined text-[22px]">emergency_home</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_1px_4px_rgba(0,0,0,0.08)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZZrpba5oISGBEt4sTT9YeKwOFHCMLhopkNS5X3m_DJXbVABsMXIiwY1uobHfHlGqqiAQdMOit3wmshQYh8I56Rp1AvxMBQryyNKYT7dhftQ_EjuGibPJkeDqadBORQJSBNAnwRNXmkYu-zI4Ag2Ve_ISpnzv0olkUj0kmg66HxAGzEJ6sKoAF177g7jaopHaArNV5cWhymOzYhv50DpBlGx7fTvJAYQOjKslGioMuIDk2IQqdHXCdxw"/></div></div></header><main class="flex-1 flex flex-col relative w-full pt-20 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Top Welcome & Assurance Header -->
+<section class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+        Phnom Penh Tech Network
+      </span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">
+      Professional Mechanic Services
+    </h1>
+<div class="inline-flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md flex-wrap">
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+        Certified Mechanics
+      </span>
+<span class="text-outline-variant">•</span>
+<span>Fixed Upfront Pricing</span>
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface font-medium">Garage &amp; Mobile</span>
+</div>
+</section>
+<!-- Emergency Roadside Fast Dispatch Banner (Urgent/Utilitarian) -->
+<section class="px-margin my-space-sm">
+<div class="relative overflow-hidden rounded-xl bg-primary-container text-on-primary p-space-md shadow-md">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-secondary-container/10 pointer-events-none blur-2xl"></div>
+<div class="flex items-start justify-between gap-space-sm relative z-10">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[22px]">e911_emergency</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary-fixed font-bold">Priority Rescue</span>
+<h2 class="font-title-lg text-title-lg font-bold leading-tight">Stranded on the Road?</h2>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-surface-container-lowest/15 text-surface-bright font-label-sm text-label-sm font-semibold shrink-0">
+          15-25 min ETA
+        </div>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-space-xs relative z-10 leading-relaxed">
+        Immediate mobile tech dispatch across Phnom Penh. Heavy duty jumpstarts, flat tires, chain snaps, and roadside mechanical diagnosis.
+      </p>
+<div class="grid grid-cols-2 gap-space-sm mt-space-md relative z-10">
+<button class="h-11 rounded-lg bg-secondary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 shadow-sm active:translate-y-0.5 active:bg-secondary transition-all">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+<span>Book Mobile</span>
+</button>
+<button class="h-11 rounded-lg bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>Hotline (24/7)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Filter Mode: In-Shop vs On-Site -->
+<section class="px-margin pt-space-xs pb-space-xs">
+<div class="p-1 rounded-xl bg-surface-container flex items-center gap-1">
+<button class="type-filter-btn flex-1 py-2 px-space-xs rounded-lg font-label-md text-label-md font-semibold text-center transition-all bg-surface-container-lowest text-on-surface shadow-sm" id="filter-all" onclick="selectType('all')">
+        All Modes
+      </button>
+<button class="type-filter-btn flex-1 py-2 px-space-xs rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface text-center flex items-center justify-center gap-1 transition-all" id="filter-mobile" onclick="selectType('mobile')">
+<span class="material-symbols-outlined text-[16px]">delivery_dining</span>
+<span>Mobile Service</span>
+</button>
+<button class="type-filter-btn flex-1 py-2 px-space-xs rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface text-center flex items-center justify-center gap-1 transition-all" id="filter-garage" onclick="selectType('garage')">
+<span class="material-symbols-outlined text-[16px]">warehouse</span>
+<span>Garage Only</span>
+</button>
+</div>
+</section>
+<!-- Horizontal Scrollable Service Categories -->
+<section class="pt-space-sm pb-space-xs overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-space-xs px-margin min-w-max">
+<button class="category-pill active flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">apps</span>
+<span>All Services</span>
+</button>
+<button class="category-pill flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">build</span>
+<span>Periodic Maintenance</span>
+</button>
+<button class="category-pill flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">car_repair</span>
+<span>Engine &amp; Trans</span>
+</button>
+<button class="category-pill flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">tire_repair</span>
+<span>Tire &amp; Suspension</span>
+</button>
+<button class="category-pill flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">battery_charging_full</span>
+<span>Electrical &amp; Battery</span>
+</button>
+<button class="category-pill flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" onclick="filterCategory(this)">
+<span class="material-symbols-outlined text-[18px]">crisis_alert</span>
+<span>Roadside Rescue</span>
+</button>
+</div>
+</section>
+<!-- Service List Header -->
+<section class="px-margin pt-space-md pb-space-xs flex items-center justify-between">
+<div class="flex items-baseline gap-2">
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Available Near You</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">14 Online</span>
+</div>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+<span>Nearest First</span>
+</button>
+</section>
+<!-- Service Cards Stream -->
+<section class="px-margin flex flex-col gap-space-md pb-space-md">
+<!-- Card 1: ABC Motor Shop (Oil Change & Safety Inspection) -->
+<article class="service-card rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm relative transition-all" data-type="both">
+<!-- Media Header & Badges -->
+<div class="flex items-start gap-space-sm">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A clean industrial motorcycle and auto repair garage with a mechanic in uniform pouring premium synthetic golden motor oil into an engine crankcase, warm workshop lighting, crisp tools on rack" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaDrrWRTbI4FkkqTO_IZBncU8YigEbR-LWeszphno9W9C3rQPE_tTHZKGTa5dFImyXHaR3q4nFm_9kqi5hvzXPu-C5w69KK-nhPq9BaDq8knT3nbM8Br52_hnY3hMC2l18KugXbRIPX_XErP9hZOjNusVbaFMUMCL4zbSZfndJXcH27l3wFJDUdrj8HkjH8DgvNqxnMlmym6hfJRblf5ufhtqZ4WEjC3rQmJL9GQrfKmOBjKG6m5jLDQ"/>
+<span class="absolute bottom-1 right-1 bg-primary-container text-on-primary text-[10px] font-bold px-1.5 py-0.5 rounded font-label-sm">30 min</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px] text-secondary">domain</span>
+              Garage or On-Site
+            </span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface leading-snug line-clamp-2">
+            Full Synthetic Engine Oil Change &amp; 15-Point Safety Check
+          </h4>
+<div class="flex items-center gap-1 mt-1 text-on-surface-variant font-label-md text-label-md">
+<span class="font-semibold text-on-surface">ABC Motor Shop &amp; Garage</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              4.8
+            </span>
+<span>(128 jobs)</span>
+<span>•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">distance</span>
+              2.5 km
+            </span>
+</div>
+</div>
+</div>
+<!-- Feature Highlights -->
+<div class="rounded-lg bg-surface-container-low p-2.5 flex flex-col gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">check_circle</span>
+<span class="truncate">Includes high-grade Motul/Shell synthetic blend</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">check_circle</span>
+<span class="truncate">Oil filter replacement &amp; drive-chain lubrication</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">check_circle</span>
+<span class="truncate">Brake pads tension &amp; tire pressure diagnostic</span>
+</div>
+</div>
+<!-- Price & Actions Footer -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">All-Inclusive</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">$15.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">labor+fluids</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Call ABC Motor Shop" class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest flex items-center justify-center transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">phone</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-secondary-container text-on-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-sm active:translate-y-0.5 transition-all">
+<span>Book Service</span>
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Revved Up Mobile Techs (Emergency Flat Tire) -->
+<article class="service-card rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm relative transition-all" data-type="mobile">
+<div class="flex items-start gap-space-sm">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Roadside emergency motorcycle repair technician in high-visibility vest using a portable electric compressor and tubeless tire puncture repair needle on a sunny urban asphalt road" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo5SBLdwruBHAv7o_OCyYXaOZgf3MuMfNJExhoRqKkhXyzgVQHJPCIbcgMN1IUsxzp_uq02sxKaQCnOUVJG_6IfeA0WgsIwI2SI8ssnHh83b_XPLxIQowV2xxRmKVViWHdfIVOROsqiJ0isQsSz9G05D7DB2e0tr4yFnj___K5eDsEUWTegh_fWzeqFZNevVXSGp00oORGRIM4fb7ci5xjZjPvi2rPEGTVzmAsoKrgkKmnb9Js5P7r5A"/>
+<span class="absolute bottom-1 right-1 bg-secondary-container text-on-primary text-[10px] font-bold px-1.5 py-0.5 rounded font-label-sm">15m Arrival</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[13px] text-secondary">flash_on</span>
+              Mobile Dispatch
+            </span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface leading-snug line-clamp-2">
+            Emergency Roadside Flat Tire &amp; Puncture Repair
+          </h4>
+<div class="flex items-center gap-1 mt-1 text-on-surface-variant font-label-md text-label-md">
+<span class="font-semibold text-on-surface">Revved Up Mobile Techs</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              4.9
+            </span>
+<span>(340+ rescues)</span>
+<span>•</span>
+<span class="flex items-center gap-0.5 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+              1.2 km away
+            </span>
+</div>
+</div>
+</div>
+<!-- Feature Highlights -->
+<div class="rounded-lg bg-surface-container-low p-2.5 flex flex-col gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">build_circle</span>
+<span class="truncate">Tubeless plug patch or heavy-duty inner tube swap</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">build_circle</span>
+<span class="truncate">Digital PSI calibration &amp; valve core inspection</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">build_circle</span>
+<span class="truncate">On-the-spot mobile compressor air top-up</span>
+</div>
+</div>
+<!-- Price & Actions Footer -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Fixed Standard</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">$8.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">trip included</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Call Mobile Tech" class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest flex items-center justify-center transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-sm active:translate-y-0.5 transition-all">
+<span>Request Now</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Kirirom Auto Specialists (Brake System Overhaul) -->
+<article class="service-card rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm relative transition-all" data-type="garage">
+<div class="flex items-start gap-space-sm">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Mechanical workshop lift area with ventilated disc brakes and calipers being serviced by certified automotive mechanics with hydraulic bleeding equipment, immaculate garage floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD48-P8PEpXY3IROl5742L_UMjLSCOjzYrluhm5VEmYaYTV2DKDE7NAOJpZ6D9QBIO3PIBdJdtTRT6fzNRixZITaWP4MUfV0A3oShUQcz8_i2eFMyrtamEb4C_8yqkJVYdE5c0DlBW7lemhFzXRg4WErhhC-nAK6kMnA0_i1IFoNafWqR7AMb7MALP1-jkpKsF8WUizRtpQOjre6mlr06FErzCITJoEg6qY9TjYzIUFRsa1KISAgjfW4g"/>
+<span class="absolute bottom-1 right-1 bg-surface-container-highest text-on-surface text-[10px] font-bold px-1.5 py-0.5 rounded font-label-sm">1.5 hrs</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">warehouse</span>
+              Workshop Only
+            </span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface leading-snug line-clamp-2">
+            Complete Brake System Overhaul &amp; Caliper Service
+          </h4>
+<div class="flex items-center gap-1 mt-1 text-on-surface-variant font-label-md text-label-md">
+<span class="font-semibold text-on-surface">Kirirom Auto Specialists</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              4.7
+            </span>
+<span>(89 reviews)</span>
+<span>•</span>
+<span class="flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">distance</span>
+              3.8 km
+            </span>
+</div>
+</div>
+</div>
+<!-- Feature Highlights -->
+<div class="rounded-lg bg-surface-container-low p-2.5 flex flex-col gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">engineering</span>
+<span class="truncate">Full caliper degrease, piston seals check &amp; relube</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">engineering</span>
+<span class="truncate">Ceramic pad installation &amp; disc resurfacing labor</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">engineering</span>
+<span class="truncate">DOT4 fluid complete flush &amp; bubble purge</span>
+</div>
+</div>
+<!-- Price & Actions Footer -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Base Overhaul</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">$35.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">parts excl.</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-10 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-md text-label-md font-semibold transition-all">
+            Details
+          </button>
+<button class="h-10 px-4 rounded-lg bg-secondary-container text-on-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-sm active:translate-y-0.5 transition-all">
+<span>Book Bay</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 4: Express Fix Quick Rescue (Battery Jumpstart & Health Test) -->
+<article class="service-card rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm relative transition-all" data-type="mobile">
+<div class="flex items-start gap-space-sm">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up of a mechanic holding heavy-duty red and black jumper clamp cables connecting to an AGM vehicle battery with a digital diagnostic multimeter device active in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAc0qmqjj4Q84fX9xbosS8TCrFh-5otkZDSMGnafgKCOSWJxFrvqDDy8c55WoI4sxRzjTyb28K9oDcDhs-HGe-23Li34WXG9_QpRjjcIAAECb2mwQC3k-f-QYKujPhfUNZPEHG5mNGbuT2EcnwAmcwN6-1S9V9atb2SwbGhrvThtRNieVSfX5_-8LkUPqpqw_HXWX9jlhkKetCIJEYaQJIfDQA4QKU9e-RG5Ou-1xT-7LlvemCjZ-jgg"/>
+<span class="absolute bottom-1 right-1 bg-secondary-container text-on-primary text-[10px] font-bold px-1.5 py-0.5 rounded font-label-sm">10 min ETA</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 mb-1">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[13px] text-secondary">battery_alert</span>
+              24/7 Mobile
+            </span>
+</div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface leading-snug line-clamp-2">
+            On-Site 12V Battery Jumpstart &amp; Health Test
+          </h4>
+<div class="flex items-center gap-1 mt-1 text-on-surface-variant font-label-md text-label-md">
+<span class="font-semibold text-on-surface">Express Fix Quick Rescue</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+              4.8
+            </span>
+<span>(215 tests)</span>
+<span>•</span>
+<span class="flex items-center gap-0.5 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[14px]">near_me</span>
+              0.8 km away
+            </span>
+</div>
+</div>
+</div>
+<!-- Feature Highlights -->
+<div class="rounded-lg bg-surface-container-low p-2.5 flex flex-col gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">electric_bolt</span>
+<span class="truncate">High-output capacitor booster pack jumpstart</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">electric_bolt</span>
+<span class="truncate">Alternator charging voltage &amp; CCA health printout</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary-container">electric_bolt</span>
+<span class="truncate">Fee fully waived if you purchase replacement battery</span>
+</div>
+</div>
+<!-- Price & Actions Footer -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary font-semibold uppercase">Free if replaced</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">$5.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">service fee</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Direct Phone Link" class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest flex items-center justify-center transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-sm active:translate-y-0.5 transition-all">
+<span>Instant Dispatch</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+<!-- Trust & Transparency Guarantee Banner -->
+<section class="px-margin my-space-sm mb-space-lg">
+<div class="rounded-xl bg-surface-container p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Repair Service Guarantee</h4>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Strict Service Standards</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-2 pt-1">
+<div class="flex items-start gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">verified_user</span>
+<span><strong>100% Vetted Techs:</strong> ID-verified mechanics with certified technical workshop credentials.</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">receipt_long</span>
+<span><strong>Fixed Upfront Quotes:</strong> Zero hidden roadside markups or unexpected labor fees.</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">published_with_changes</span>
+<span><strong>30-Day Labor Warranty:</strong> If the issue recurs within 30 days, we fix it at zero extra labor cost.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive script for category and mode filtering -->
+<script>
+    function selectType(type) {
+      const buttons = document.querySelectorAll('.type-filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'shadow-sm');
+        btn.classList.add('text-on-surface-variant');
+      });
+
+      const activeBtn = document.getElementById('filter-' + type);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-surface-container-lowest', 'text-on-surface', 'shadow-sm');
+        activeBtn.classList.remove('text-on-surface-variant');
+      }
+
+      const cards = document.querySelectorAll('.service-card');
+      cards.forEach(card => {
+        const cardType = card.getAttribute('data-type');
+        if (type === 'all') {
+          card.classList.remove('hidden');
+        } else if (type === 'mobile') {
+          if (cardType === 'mobile' || cardType === 'both') {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        } else if (type === 'garage') {
+          if (cardType === 'garage' || cardType === 'both') {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+    function filterCategory(el) {
+      document.querySelectorAll('.category-pill').forEach(pill => {
+        pill.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        pill.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+      el.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+      el.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.05)] pb-[env(safe-area-inset-bottom,0px)]" data-active-classes="text-secondary font-bold"><div class="flex justify-around items-center h-16 max-w-lg mx-auto px-margin-sm"><a class="flex flex-col items-center justify-center min-w-[50px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all active:scale-95" data-path="gps-map" href="#"><span class="material-symbols-outlined text-[24px]">explore</span><span class="font-label-sm text-label-sm mt-0.5">Map</span></a><a class="flex flex-col items-center justify-center min-w-[50px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all active:scale-95" data-path="repair-services" href="#"><span class="material-symbols-outlined text-[24px]">home_repair_service</span><span class="font-label-sm text-label-sm mt-0.5">Services</span></a><a class="flex flex-col items-center justify-center min-w-[50px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all active:scale-95" data-path="parts-store" href="#"><span class="material-symbols-outlined text-[24px]">shopping_bag</span><span class="font-label-sm text-label-sm mt-0.5">Store</span></a><a class="flex flex-col items-center justify-center min-w-[50px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all active:scale-95" data-path="vehicle-management" href="#"><span class="material-symbols-outlined text-[24px]">build</span><span class="font-label-sm text-label-sm mt-0.5">Manage</span></a><a class="flex flex-col items-center justify-center min-w-[50px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all active:scale-95" data-path="technician-profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-sm text-label-sm mt-0.5">Profile</span></a></div></nav></body></html>

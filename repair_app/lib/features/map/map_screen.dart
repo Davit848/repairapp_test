@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -8,7 +10,6 @@ import '../../core/widgets/app_header.dart';
 import '../../core/widgets/pill_selector.dart';
 import '../../core/widgets/search_field.dart';
 import '../../core/widgets/status_badge.dart';
-import '../../core/widgets/street_map_painter.dart';
 import '../../data/static_data.dart';
 import 'widgets/map_markers.dart';
 import 'widgets/shop_preview_card.dart';
@@ -27,6 +28,14 @@ class _MapScreenState extends State<MapScreen> {
   ShopType? _filter;
   String _query = '';
   Shop? _selected = StaticData.abcGarage;
+  _MapLayer _layer = _MapLayer.standard;
+  final _mapController = MapController();
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
 
   List<Shop> get _visibleShops {
     final query = _query.trim().toLowerCase();
@@ -81,62 +90,117 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
+  void _selectShop(Shop shop) {
+    setState(() => _selected = shop);
+    _mapController.fitCamera(_fitTo([StaticData.userLocation, shop.location]));
+  }
+
+  void _toggleLayer() {
+    setState(() => _layer = _layer == _MapLayer.standard ? _MapLayer.humanitarian : _MapLayer.standard);
+    context.showFeedback('${_layer.label} map');
+  }
+
+  /// Frames [points], keeping them clear of the controls and the preview card.
+  static CameraFit _fitTo(List<LatLng> points) => CameraFit.coordinates(
+    coordinates: points,
+    padding: const EdgeInsets.fromLTRB(90, 110, 90, 260),
+    maxZoom: 17,
+  );
+
   Widget _buildMap() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Keep pins clear of the preview card docked at the bottom.
-        const cardReserve = 230.0;
-        final viewport = Rect.fromLTWH(
-          0,
-          8,
-          constraints.maxWidth,
-          (constraints.maxHeight - cardReserve).clamp(160, double.infinity),
-        );
-        Offset toCanvas(Offset n) =>
-            Offset(viewport.left + n.dx * viewport.width, viewport.top + n.dy * viewport.height);
-
-        return Stack(
+    final selected = _selected;
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            initialCameraFit: _fitTo([StaticData.userLocation, for (final shop in StaticData.shops) shop.location]),
+            minZoom: 4,
+            maxZoom: 19,
+            onTap: (_, _) => setState(() => _selected = null),
+          ),
           children: [
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: () => setState(() => _selected = null),
-                child: CustomPaint(
-                  painter: StreetMapPainter(
-                    viewport: viewport,
-                    routeFrom: StaticData.userMapPosition,
-                    routeTo: _selected?.mapPosition,
-                  ),
-                ),
-              ),
+            TileLayer(
+              urlTemplate: _layer.urlTemplate,
+              userAgentPackageName: 'com.example.repair_app',
+              maxNativeZoom: 19,
             ),
-            _anchored(toCanvas(StaticData.userMapPosition), const UserMarker(), dy: -0.6),
-            for (final shop in _visibleShops)
-              _anchored(
-                toCanvas(shop.mapPosition),
-                ShopMarker(shop: shop, isSelected: shop == _selected, onTap: () => setState(() => _selected = shop)),
+            if (selected != null)
+              PolylineLayer(
+                polylines: [
+                  Polyline(
+                    points: [StaticData.userLocation, selected.location],
+                    color: AppColors.blue,
+                    strokeWidth: 4,
+                    strokeCap: StrokeCap.round,
+                    pattern: StrokePattern.dashed(segments: const [7, 5]),
+                  ),
+                ],
               ),
-            const Positioned(top: 12, right: AppSpacing.md, child: _MapControls()),
-            if (_selected != null)
-              Positioned(
-                left: AppSpacing.md,
-                right: AppSpacing.md,
-                bottom: AppSpacing.md,
-                child: ShopPreviewCard(shop: _selected!, onViewShop: widget.onViewShop),
-              ),
+            MarkerLayer(
+              markers: [
+                // Box is twice the dot's offset from the bottom so the GPS dot sits on the point.
+                const Marker(
+                  point: StaticData.userLocation,
+                  width: 60,
+                  height: 88,
+                  child: Align(alignment: Alignment.bottomCenter, child: UserMarker()),
+                ),
+                for (final shop in _visibleShops)
+                  Marker(
+                    point: shop.location,
+                    width: 280,
+                    height: 112,
+                    alignment: Alignment.topCenter,
+                    child: OverflowBox(
+                      maxWidth: double.infinity,
+                      alignment: Alignment.bottomCenter,
+                      child: ShopMarker(shop: shop, isSelected: shop == selected, onTap: () => _selectShop(shop)),
+                    ),
+                  ),
+              ],
+            ),
           ],
-        );
-      },
+        ),
+        // Required by the OSM tile usage policy.
+        Positioned(
+          left: 0,
+          bottom: 0,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+            color: AppColors.card.withValues(alpha: 0.85),
+            child: Text('© OpenStreetMap contributors', style: AppTextStyles.labelSm.copyWith(color: AppColors.slate)),
+          ),
+        ),
+        Positioned(
+          top: 12,
+          right: AppSpacing.md,
+          child: _MapControls(
+            onCompassReset: () => _mapController.rotate(0),
+            onToggleLayer: _toggleLayer,
+            onRecenter: () => _mapController.move(StaticData.userLocation, 16),
+          ),
+        ),
+        if (selected != null)
+          Positioned(
+            left: AppSpacing.md,
+            right: AppSpacing.md,
+            bottom: AppSpacing.md + 24,
+            child: ShopPreviewCard(shop: selected, onViewShop: widget.onViewShop),
+          ),
+      ],
     );
   }
+}
 
-  /// Places [child] so its bottom-center sits on [point].
-  Widget _anchored(Offset point, Widget child, {double dy = -1}) {
-    return Positioned(
-      left: point.dx,
-      top: point.dy,
-      child: FractionalTranslation(translation: Offset(-0.5, dy), child: child),
-    );
-  }
+enum _MapLayer {
+  standard('Standard', 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'),
+  humanitarian('Humanitarian', 'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+
+  const _MapLayer(this.label, this.urlTemplate);
+
+  final String label;
+  final String urlTemplate;
 }
 
 class _LocationBar extends StatelessWidget {
@@ -168,16 +232,20 @@ class _LocationBar extends StatelessWidget {
 }
 
 class _MapControls extends StatelessWidget {
-  const _MapControls();
+  const _MapControls({required this.onCompassReset, required this.onToggleLayer, required this.onRecenter});
+
+  final VoidCallback onCompassReset;
+  final VoidCallback onToggleLayer;
+  final VoidCallback onRecenter;
 
   @override
   Widget build(BuildContext context) {
-    Widget control(IconData icon, String label) => Container(
+    Widget control(IconData icon, String label, VoidCallback onPressed) => Container(
       margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       decoration: const BoxDecoration(color: AppColors.card, borderRadius: AppRadius.lg, boxShadow: AppShadows.level2),
       child: IconButton(
         tooltip: label,
-        onPressed: () => context.showFeedback(label),
+        onPressed: onPressed,
         icon: Icon(icon, color: AppColors.amberDeep),
         constraints: const BoxConstraints.tightFor(width: 48, height: 48),
       ),
@@ -185,9 +253,9 @@ class _MapControls extends StatelessWidget {
 
     return Column(
       children: [
-        control(Icons.explore_outlined, 'Compass reset'),
-        control(Icons.layers_outlined, 'Map layers'),
-        control(Icons.near_me_outlined, 'Recenter on my location'),
+        control(Icons.explore_outlined, 'Compass reset', onCompassReset),
+        control(Icons.layers_outlined, 'Map layers', onToggleLayer),
+        control(Icons.near_me_outlined, 'Recenter on my location', onRecenter),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import 'models/mechanic_service.dart';
 import 'models/owner_profile.dart';
@@ -18,8 +19,8 @@ abstract final class StaticData {
   static const hotline = '1800 REPAIR';
   static const currentLocation = 'St. 271, Phnom Penh';
 
-  /// Normalized position of the motorist on the static map.
-  static const userMapPosition = Offset(0.32, 0.72);
+  /// Demo GPS fix for the motorist until live location is wired in.
+  static const userLocation = LatLng(11.5478, 104.9122);
 
   // ---------------------------------------------------------------- Shops
 
@@ -36,7 +37,6 @@ abstract final class StaticData {
     closingTime: '8:00 PM',
     latitude: 11.5564,
     longitude: 104.9282,
-    mapPosition: Offset(0.63, 0.34),
     mapIcon: Icons.handyman,
     note: 'Free quote on diagnostic',
   );
@@ -54,7 +54,6 @@ abstract final class StaticData {
     closingTime: '6:30 PM',
     latitude: 11.5489,
     longitude: 104.9214,
-    mapPosition: Offset(0.38, 0.14),
     mapIcon: Icons.car_repair,
   );
 
@@ -71,7 +70,6 @@ abstract final class StaticData {
     closingTime: '9:00 PM',
     latitude: 11.5532,
     longitude: 104.9249,
-    mapPosition: Offset(0.22, 0.45),
     mapIcon: Icons.two_wheeler,
     note: 'Mobile rescue within 15 km',
   );
@@ -89,7 +87,6 @@ abstract final class StaticData {
     closingTime: '24/7',
     latitude: 11.5431,
     longitude: 104.9198,
-    mapPosition: Offset(0.68, 0.82),
     mapIcon: Icons.car_crash_outlined,
     note: '24/7 roadside dispatch',
   );
